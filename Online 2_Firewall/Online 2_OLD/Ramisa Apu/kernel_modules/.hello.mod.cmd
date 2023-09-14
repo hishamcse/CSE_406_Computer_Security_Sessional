@@ -1,0 +1,1 @@
+cmd_/home/seed/codes/Labsetup/Practice/kernel_modules/hello.mod := { echo  /home/seed/codes/Labsetup/Practice/kernel_modules/hello.o; echo; } > /home/seed/codes/Labsetup/Practice/kernel_modules/hello.mod

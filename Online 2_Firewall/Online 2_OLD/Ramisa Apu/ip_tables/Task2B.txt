@@ -1,0 +1,19 @@
+1. To find interface addresses:
+inside the router container:
+==> ip addr
+
+output: 
+	eth0 = outside(10.9.0.0)
+	eth1 = inside (192.168.60.0)
+
+2. Add rules in filter table for FORWARD rules
+
+a. Allow echo request from inside (eth1)
+==> iptables -A FORWARD -i eth1 -p icmp --icmp-type echo-request -j ACCEPT
+
+b. Allow echo reply from outside (eth0)
+==> iptables -A FORWARD -i eth0 -p icmp --icmp-type echo-reply -j ACCEPT
+
+c. Drop all others
+==> iptables -P FORWARD DROP
+		

@@ -1,0 +1,31 @@
+Router:
+
+1. 
+iptables -A FORWARD -i eth0 -p tcp --dport 22 -j DROP
+
+2. 
+iptables -A INPUT -p tcp -j DROP
+
+4.
+iptables -A FORWARD -i eth0 -p tcp -s 10.9.0.5 -d 192.168.60.6 --dport 23 -j ACCEPT
+iptables -A FORWARD -i eth1 -p tcp -s 192.168.60.6 -d 10.9.0.5 --sport 23 -j ACCEPT
+5.
+iptables -A FORWARD -p tcp --dport 23 -j DROP
+
+7.
+iptables -A FORWARD -i eth0 -s 10.9.0.5 -p icmp --icmp-type echo-request -j ACCEPT
+iptables -A FORWARD -i eth1 -d 10.9.0.5 -p icmp --icmp-type echo-reply -j ACCEPT
+
+
+
+Inside 10.9.0.1:
+6.
+iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
+iptables -A OUTPUT -p icmp --icmp-type echo-request -j DROP
+
+
+Inside all internal:
+5.
+iptables -A OUTPUT -p tcp --dport 23 -j DROP
+8.
+iptables -A OUTPUT -p icmp --icmp-type echo-request -j DROP 

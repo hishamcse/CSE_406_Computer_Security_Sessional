@@ -1,0 +1,1 @@
+cmd_/home/seed/codes/Labsetup/Practice/kernel_modules/hello.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000  --build-id  -T ./scripts/module-common.lds -o /home/seed/codes/Labsetup/Practice/kernel_modules/hello.ko /home/seed/codes/Labsetup/Practice/kernel_modules/hello.o /home/seed/codes/Labsetup/Practice/kernel_modules/hello.mod.o;  true

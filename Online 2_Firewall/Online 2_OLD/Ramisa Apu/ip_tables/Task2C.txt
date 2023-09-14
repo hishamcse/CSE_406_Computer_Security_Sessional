@@ -1,0 +1,19 @@
+1. To find interface addresses:
+inside the router container:
+==> ip addr
+
+output: 
+	eth0 = outside(10.9.0.0)
+	eth1 = inside (192.168.60.0)
+
+2. Allow destination tcp 192.168.60.5, port 23 from eth0
+
+==> iptables -A FORWARD -i eth0 -p tcp -d 192.168.60.5 --dport 23 -j ACCEPT
+
+3. Allow source tcp 192.168.60.5, port 23 from eth1
+
+==> iptables -A FORWARD -i eth1 -p tcp -s 192.168.60.5 --sport 23 -j ACCEPT
+
+4. DROP all else
+
+==> iptables -P FORWARD DROP
